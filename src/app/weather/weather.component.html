@@ -1,0 +1,62 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">METEO TEST WITH GeoDB Cities API</a>
+    <form class="form-inline" (ngSubmit)="onSubmit(form)" #form="ngForm">
+
+        <select class="form-control mr-sm-2 browser-default custom-select dropdown-primary" ngModel id="select"
+            name='city'>
+            <option value="" value="" selected disabled>choisir une ville</option>
+            <option *ngFor="let c of cities">{{c.city}}</option>
+
+        </select>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col text-capitalize text-center">
+            <h1 *ngIf="!wth">Bienvenue sur METEO TEST APPLICATION </h1>
+        </div>
+    </div>
+    <div class="row" *ngIf="wth">
+
+
+        <div class="col-md-4 box-part">
+            <div class="title text-center">
+                <h4>{{wth.city.name}}</h4>
+            </div>
+            <div class="text text-center">
+                <span>Lat :{{wth.city.coord.lat}} --- Lon : {{wth.city.coord.lon}}</span>
+            </div>
+
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12" *ngFor="let weather of wth.list; let index = index">
+
+                    <div class="box-part text-center">
+
+                        <div class="title">
+                            <h4>{{weather.main.temp | convertInt}}°</h4>
+                        </div>
+                        <div class="title">
+                            <img src="http://openweathermap.org/img/w/{{weather.weather[0].icon}}.png">
+                        </div>
+
+                        <div class="text">
+                            <span
+                                class="badge badge-pill badge-info">{{weather.dt_txt | date:'EEEE d MMMM y  H:mm':' ':'fr-FR' | uppercase}}</span>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
